@@ -10,18 +10,20 @@ public class Background {
 	private String href;
 	private String image;
 	private String color;
+	private boolean active;
 	
 	public Background() {
 		
 	}
 
-	public Background(int id, String name, String href, String image, String color) {
+	public Background(int id, String name, String href, String image, String color, boolean active) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.href = href;
 		this.image = image;
 		this.color = color;
+		this.active = active;
 	}
 
 	public int getId() {
@@ -62,6 +64,14 @@ public class Background {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }
