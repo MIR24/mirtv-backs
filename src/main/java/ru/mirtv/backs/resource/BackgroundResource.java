@@ -1,5 +1,6 @@
 package ru.mirtv.backs.resource;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -10,7 +11,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import ru.mirtv.backs.model.Background;
 import ru.mirtv.backs.service.BackgroundService;
@@ -34,8 +38,11 @@ public class BackgroundResource {
 	}
 
 	@POST
-	public Background addBackground(Background background) {
-		return backgroundService.addBackground(background);
+	public Response addBackground(Background background, @Context UriInfo uriInfo) {
+		Background newBackground = backgroundService.addBackground(background);
+		String newId = String.valueOf(newBackground.getId());
+		URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(newId)).build();
+		return Response.created(uri).entity(newBackground).build();
 	}
 
 	@PUT
