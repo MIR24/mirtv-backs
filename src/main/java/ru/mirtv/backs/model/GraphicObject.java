@@ -1,11 +1,22 @@
 package ru.mirtv.backs.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class GraphicObject {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@Column
 	private String name;
+	@Column
 	private String href;
+	@Column
 	private String image;
+	@Column
 	private boolean active;
 
 	public GraphicObject() {

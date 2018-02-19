@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ru.mirtv.backs.database.DatabaseClass;
+import ru.mirtv.backs.database.DatabaseManager;
 import ru.mirtv.backs.model.Banner;
 
 public class BannerService {
 
-	private Map<Integer, Banner> banners = DatabaseClass.getBanners();
+	private Map<Integer, Banner> banners = DatabaseManager.getBanners();
 
 	public BannerService() {
 		banners.put(1, new Banner(1, "Спрут", "http://mirtv.ru/sprut/", "http://mirtv.ru/images/banner_960_sprut.jpg", true));

@@ -1,10 +1,14 @@
 package ru.mirtv.backs.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@XmlRootElement
+@Entity
+@Table(name="background")
 public class Background extends GraphicObject {
 
+	@Column
 	private String color;
 
 	public Background() {
@@ -15,6 +19,8 @@ public class Background extends GraphicObject {
 		super(id, name, href, image, active);
 		this.setColor(color);
 	}
+	
+	
 
 	public String getColor() {
 		return color;
