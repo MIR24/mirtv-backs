@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import ru.mirtv.backs.database.BannerDAOMySQLImpl;
 
 import ru.mirtv.backs.model.Banner;
 import ru.mirtv.backs.service.BannerService;
@@ -23,37 +24,39 @@ import ru.mirtv.backs.service.BannerService;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class BannerResource {
-	private BannerService bannerService = new BannerService();
 
-	@GET
-	public List<Banner> getBanners() {
-		return bannerService.getBanners();
-	}
+    private BannerService bannerService = new BannerService(new BannerDAOMySQLImpl());
 
-	@GET
-	@Path("/{bannerId}")
-	public Banner getBannerById(@PathParam("bannerId") int bannerId) {
-		return bannerService.getBannerById(bannerId);
-	}
+    @GET
+    public List<Banner> getBanners() {
+        return bannerService.getBanners();
+    }
 
-	@POST
-	public Response addBanner(Banner banner, @Context UriInfo uriInfo) {
-		Banner newBanner = bannerService.addBanner(banner);
-		String newId = String.valueOf(newBanner.getId());
-		URI uri = uriInfo.getAbsolutePathBuilder().path(newId).build();
-		return Response.created(uri).entity(newBanner).build();
-	}
+    @GET
+    @Path("/{bannerId}")
+    public Banner getBannerById(@PathParam("bannerId") int bannerId) {
+        return bannerService.getBannerById(bannerId);
+    }
 
-	@PUT
-	@Path("/{bannerId}")
-	public Banner updateBanner(Banner banner, @PathParam("bannerId") int bannerId) {
-		banner.setId(bannerId);
-		return bannerService.updateBanner(banner);
-	}
+    @POST
+    public Response addBanner(Banner banner, @Context UriInfo uriInfo) {
+        Banner newBanner = bannerService.addBanner(banner);
+        String newId = String.valueOf(newBanner.getId());
+        URI uri = uriInfo.getAbsolutePathBuilder().path(newId).build();
+        return Response.created(uri).entity(newBanner).build();
+    }
 
-	@DELETE
-	@Path("/{bannerId}")
-	public void removeBanner(@PathParam("bannerId") int bannerId) {
-		bannerService.removeBanner(bannerId);
-	}
+    @PUT
+    @Path("/{bannerId}")
+    public Banner updateBanner(Banner banner, @PathParam("bannerId") int bannerId) {
+        banner.setId(bannerId);
+        return bannerService.updateBanner(banner);
+    }
+
+    @DELETE
+    @Path("/{bannerId}")
+    public void removeBanner(@PathParam("bannerId") int bannerId) {
+        Banner banner = bannerService.getBannerById(bannerId);
+        bannerService.removeBanner(banner);
+    }
 }

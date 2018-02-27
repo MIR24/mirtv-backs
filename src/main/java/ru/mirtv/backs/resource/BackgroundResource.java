@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import ru.mirtv.backs.database.BackgroundDAOMySQLImpl;
 
 import ru.mirtv.backs.model.Background;
 import ru.mirtv.backs.service.BackgroundService;
@@ -24,38 +25,39 @@ import ru.mirtv.backs.service.BackgroundService;
 @Consumes(MediaType.APPLICATION_JSON)
 public class BackgroundResource {
 
-	private BackgroundService backgroundService = new BackgroundService();
+    private final BackgroundService backgroundService
+            = new BackgroundService(new BackgroundDAOMySQLImpl());
 
-	@GET
-	public List<Background> getBackgrounds() {
-		return backgroundService.getBackgrounds();
-	}
+    @GET
+    public List<Background> getBackgrounds() {
+        return backgroundService.getBackgrounds();
+    }
 
-	@GET
-	@Path("/{backgroundId}")
-	public Background getBackgroundById(@PathParam("backgroundId") int backgroundId) {
-		return backgroundService.getBackgroundById(backgroundId);
-	}
+    @GET
+    @Path("/{backgroundId}")
+    public Background getBackgroundById(@PathParam("backgroundId") int backgroundId) {
+        return backgroundService.getBackgroundById(backgroundId);
+    }
 
-	@POST
-	public Response addBackground(Background background, @Context UriInfo uriInfo) {
-		Background newBackground = backgroundService.addBackground(background);
-		String newId = String.valueOf(newBackground.getId());
-		URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(newId)).build();
-		return Response.created(uri).entity(newBackground).build();
-	}
+    @POST
+    public Response addBackground(Background background, @Context UriInfo uriInfo) {
+        Background newBackground = backgroundService.addBackground(background);
+        String newId = String.valueOf(newBackground.getId());
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(newId)).build();
+        return Response.created(uri).entity(newBackground).build();
+    }
 
-	@PUT
-	@Path("/{backgroundId}")
-	public Background updateBackground(Background background, @PathParam("backgroundId") int backgroundId) {
-		background.setId(backgroundId);
-		return backgroundService.updateBackground(background);
-	}
+    @PUT
+    @Path("/{backgroundId}")
+    public Background updateBackground(Background background, @PathParam("backgroundId") int backgroundId) {
+        background.setId(backgroundId);
+        return backgroundService.updateBackground(background);
+    }
 
-	@DELETE
-	@Path("/{backgroundId}")
-	public void removeBackground(@PathParam("backgroundId") int backgroundId) {
-		backgroundService.removeBackground(backgroundId);
-	}
+    @DELETE
+    @Path("/{backgroundId}")
+    public void removeBackground(@PathParam("backgroundId") int backgroundId) {
+        backgroundService.removeBackground(backgroundId);
+    }
 
 }
