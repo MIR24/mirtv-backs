@@ -1,6 +1,7 @@
 package ru.mirtv.backs.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -116,6 +117,32 @@ public class Background implements Serializable {
      */
     public void setActive(boolean active) {
         this.active = active;
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj)
+            return true;
+        if(obj == null || getClass() != obj.getClass())
+            return false;
+        Background otherBackground = (Background) obj;
+        return otherBackground.id == id 
+                && otherBackground.name.equals(name)
+                && otherBackground.color.equals(color)
+                && otherBackground.href.equals(href)
+                && otherBackground.image.equals(image);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.href);
+        hash = 97 * hash + Objects.hashCode(this.image);
+        hash = 97 * hash + (this.active ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.color);
+        return hash;
     }
 
 }

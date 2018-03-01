@@ -1,6 +1,7 @@
 package ru.mirtv.backs.database;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.mirtv.backs.model.Background;
@@ -24,6 +25,10 @@ public class HibernateUtil {
 
     public static SessionFactory getSessionFactory() {
         return SESSION_FACTORY;
+    }
+    
+    public static Session getSession(){
+        return SESSION_FACTORY.getCurrentSession();
     }
 
     public static void shutdown() {
