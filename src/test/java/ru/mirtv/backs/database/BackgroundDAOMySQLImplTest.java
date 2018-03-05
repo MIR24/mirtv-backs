@@ -12,7 +12,7 @@ import ru.mirtv.backs.model.Background;
 public class BackgroundDAOMySQLImplTest {
 
     @Test
-    public void testCRUD() {
+    public void testBackgroundCRUD() {
         System.out.println("Test list, insert, get, update and remove methods.");
         
         BackgroundDAOMySQLImpl instance = new BackgroundDAOMySQLImpl();
@@ -29,7 +29,6 @@ public class BackgroundDAOMySQLImplTest {
         
         addedBackground.setColor("#ddd");
         instance.updateBackground(addedBackground);
-        System.out.println(instance.getBackgroundById(addedBackground.getId()).getColor());
         assertEquals(instance.getBackgroundById(addedBackground.getId()).getColor(), "#ddd");
         
         instance.removeBackground(addedBackground);

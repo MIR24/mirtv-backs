@@ -1,6 +1,7 @@
 package ru.mirtv.backs.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -105,5 +106,31 @@ public class Banner implements Serializable {
      */
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + this.id;
+        hash = 59 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + Objects.hashCode(this.href);
+        hash = 59 * hash + Objects.hashCode(this.image);
+        hash = 59 * hash + (this.active ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Banner otherBanner = (Banner) obj;
+        return otherBanner.id == id
+                && otherBanner.name.equals(name)
+                && otherBanner.href.equals(href)
+                && otherBanner.image.equals(image);
     }
 }

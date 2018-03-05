@@ -118,15 +118,17 @@ public class Background implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
-    
+
     @Override
-    public boolean equals(Object obj){
-        if(this == obj)
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
-        if(obj == null || getClass() != obj.getClass())
+        }
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
+        }
         Background otherBackground = (Background) obj;
-        return otherBackground.id == id 
+        return otherBackground.id == id
                 && otherBackground.name.equals(name)
                 && otherBackground.color.equals(color)
                 && otherBackground.href.equals(href)

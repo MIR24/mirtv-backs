@@ -7,35 +7,33 @@ import ru.mirtv.backs.persistence.BannerDAO;
 
 public class BannerService {
 
-    private final BannerDAO bannersManager;
+    private final BannerDAO bannerManager;
     
     public BannerService(BannerDAO bannersManager) {
-        this.bannersManager = bannersManager;
-        /*banners.put(1, new Banner(1, "Спрут", "http://mirtv.ru/sprut/", "http://mirtv.ru/images/banner_960_sprut.jpg", true));
-        banners.put(2, new Banner(2, "Дела семейные", "http://mirtv.ru/broadcast/213/", "http://mirtv.ru/images/banner_960_dela_0712_1.jpg", true));*/
+        this.bannerManager = bannersManager;
     }
 
     public List<Banner> getBanners() {
-        return bannersManager.getBanners();
+        return bannerManager.getBanners();
     }
 
     public Banner getBannerById(int bannerId) {
-        return bannersManager.getBannerById(bannerId);
+        return bannerManager.getBannerById(bannerId);
     }
 
     public Banner addBanner(Banner newBanner) {
-        return bannersManager.addBanner(newBanner);
+        return bannerManager.addBanner(newBanner);
     }
 
     public Banner updateBanner(Banner banner) {
         if (banner.getId() <= 0) {
             return null;
         }
-        return bannersManager.updateBanner(banner);
+        return bannerManager.updateBanner(banner);
     }
 
     public void removeBanner(Banner banner) {
-        bannersManager.removeBanner(banner);
+        bannerManager.removeBanner(banner);
     }
 
 }

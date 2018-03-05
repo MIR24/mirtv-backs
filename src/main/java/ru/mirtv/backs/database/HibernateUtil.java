@@ -27,6 +27,10 @@ public class HibernateUtil {
         return SESSION_FACTORY;
     }
     
+    /**
+     * Return session from context pool. No need to close it.
+     * @return Session from context
+     */
     public static Session getSession(){
         return SESSION_FACTORY.getCurrentSession();
     }
